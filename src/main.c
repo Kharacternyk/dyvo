@@ -19,7 +19,7 @@ int leave_span(MD_SPANTYPE st, void *d, void *ud) {
     return 0;
 }
 
-int text(MD_TEXTTYPE tt, const MD_CHAR* t, MD_SIZE s, void *ud) {
+int text(MD_TEXTTYPE tt, const MD_CHAR *t, MD_SIZE s, void *ud) {
     fwrite(t, 1, s, stdout);
     return 0;
 }
