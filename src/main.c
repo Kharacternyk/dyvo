@@ -1,7 +1,5 @@
 #include <md4c.h>
-#include <stddef.h>
 #include <stdio.h>
-#include <unistd.h>
 
 int enter_block(MD_BLOCKTYPE bt, void *d, void *ud) {
     return 0;
