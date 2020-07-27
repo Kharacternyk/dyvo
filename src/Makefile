@@ -1,3 +1,6 @@
+debug: format check build
+	@./dyvo
+
 build:
 	@gcc -o dyvo -Wall *.c -lmd4c -lcairo
 
@@ -6,7 +9,7 @@ check:
 	          --quiet --platform=unix64 --enable=all *.c
 
 format:
-	@astyle --formatted --project *.c *.h
+	@astyle --formatted --project *.c
 
 graph:
 	@cinclude2dot | xdot -

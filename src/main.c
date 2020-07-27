@@ -28,7 +28,7 @@ int text(MD_TEXTTYPE tt, const MD_CHAR *t, MD_SIZE s, void *ud) {
     char *buf = malloc(s + 1);
     strncpy(buf, t, s);
     buf[s] = '\0';
-    cairo_show_text (cr, buf);
+    cairo_show_text(cr, buf);
     return 0;
 }
 
@@ -45,17 +45,17 @@ int main() {
         NULL
     };
 
-    surface = cairo_pdf_surface_create ("cairo.pdf", 500, 500);
-    cr = cairo_create (surface);
+    surface = cairo_pdf_surface_create("cairo.pdf", 500, 500);
+    cr = cairo_create(surface);
 
-    cairo_select_font_face (cr, "serif", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size (cr, 32.0);
-    cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
-    cairo_move_to (cr, 10.0, 50.0);
+    cairo_select_font_face(cr, "serif", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size(cr, 32.0);
+    cairo_set_source_rgb(cr, 0.0, 0.0, 1.0);
+    cairo_move_to(cr, 10.0, 50.0);
 
     MD_CHAR *data = "Blah *Italics* Blah *BOLD*                ";
     md_parse(data, 30, &parser, NULL);
 
-    cairo_destroy (cr);
-    cairo_surface_destroy (surface);
+    cairo_destroy(cr);
+    cairo_surface_destroy(surface);
 }
