@@ -9,7 +9,7 @@ check:
 	          --quiet --platform=unix64 --enable=all *.c
 
 format:
-	@astyle --formatted --project *.c
+	@astyle --formatted --project *.c *.h
 
 graph:
 	@cinclude2dot | xdot -
