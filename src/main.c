@@ -19,6 +19,7 @@ int main() {
     cairo_surface_t *surface = cairo_pdf_surface_create(OUTPUT, PAGE_WIDTH, PAGE_HEIGHT);
     cairo_t *cr = cairo_create(surface);
 
+    cairo_select_font_face(cr, TYPEFACE, CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
     cairo_set_font_size(cr, FONT_SIZE);
     cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
 
