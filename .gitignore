@@ -1,4 +1,5 @@
 dyvo
+*.pdf
 
 # Prerequisites
 *.d
