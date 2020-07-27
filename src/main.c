@@ -1,5 +1,7 @@
 #include <md4c.h>
 #include <stdio.h>
+#include <cairo/cairo.h>
+#include <cairo/cairo-pdf.h>
 
 int enter_block(MD_BLOCKTYPE bt, void *d, void *ud) {
     return 0;
@@ -37,4 +39,18 @@ int main() {
 
     MD_CHAR *data = "Blah *Italics* Blah *BOLD*                ";
     md_parse(data, 30, &parser, NULL);
+
+    cairo_surface_t *surface =
+        cairo_pdf_surface_create ("cairo.pdf", 240, 80);
+    cairo_t *cr =
+        cairo_create (surface);
+
+    cairo_select_font_face (cr, "serif", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+    cairo_set_font_size (cr, 32.0);
+    cairo_set_source_rgb (cr, 0.0, 0.0, 1.0);
+    cairo_move_to (cr, 10.0, 50.0);
+    cairo_show_text (cr, "Hello, world");
+
+    cairo_destroy (cr);
+    cairo_surface_destroy (surface);
 }

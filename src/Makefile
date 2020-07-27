@@ -1,5 +1,5 @@
 build:
-	@gcc -o dyvo -Wall *.c -lmd4c
+	@gcc -o dyvo -Wall *.c -lmd4c -lcairo
 
 check:
 	@cppcheck --suppress=missingIncludeSystem --template=gcc \
