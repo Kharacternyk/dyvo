@@ -29,6 +29,7 @@ int text(MD_TEXTTYPE tt, const MD_CHAR *t, MD_SIZE s, void *ud) {
     strncpy(buf, t, s);
     buf[s] = '\0';
     cairo_show_text(cr, buf);
+    free(buf);
     return 0;
 }
 
