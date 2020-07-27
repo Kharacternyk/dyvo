@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "handlers.h"
+#include "config.h"
 
 int main() {
     MD_PARSER parser = {
@@ -15,16 +16,15 @@ int main() {
         NULL
     };
 
-    cairo_surface_t *surface = cairo_pdf_surface_create("cairo.pdf", 500, 500);
+    cairo_surface_t *surface = cairo_pdf_surface_create(OUTPUT, PAGE_WIDTH, PAGE_HEIGHT);
     cairo_t *cr = cairo_create(surface);
 
-    cairo_select_font_face(cr, "serif", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    cairo_set_font_size(cr, 32.0);
-    cairo_set_source_rgb(cr, 0.0, 0.0, 1.0);
+    cairo_set_font_size(cr, FONT_SIZE);
+    cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
 
-    char buffer[1000];
+    char buffer[BUFFER_SIZE];
     size_t readc;
-    while ((readc = fread(buffer, 1, 1000, stdin))) {
+    while ((readc = fread(buffer, sizeof(char), BUFFER_SIZE, stdin))) {
         md_parse(buffer, readc, &parser, cr);
     }
 
