@@ -32,7 +32,8 @@ int enter_span(MD_SPANTYPE st, void *d, void *cr) {
 }
 
 int leave_span(MD_SPANTYPE st, void *d, void *cr) {
-    cairo_select_font_face(cr, TYPEFACE, CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+    cairo_select_font_face(cr, TYPEFACE,
+                           CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
     return 0;
 }
 
