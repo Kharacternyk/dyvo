@@ -1,5 +1,5 @@
 debug: format check build
-	@./dyvo
+	@cd slides.d && ../dyvo
 
 build:
 	@gcc -o dyvo -Wall *.c -lmd4c -lcairo

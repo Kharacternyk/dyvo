@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <dirent.h>
+#include <string.h>
 
 #include "handlers.h"
 #include "config.h"
@@ -23,10 +25,23 @@ int main() {
     cairo_set_font_size(cr, FONT_SIZE);
     cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
 
-    char buffer[BUFFER_SIZE];
-    size_t readc;
-    while ((readc = fread(buffer, sizeof(char), BUFFER_SIZE, stdin))) {
-        md_parse(buffer, readc, &parser, cr);
+    struct dirent **files;
+    size_t filec = scandir(".", &files, NULL, alphasort);
+    for (size_t i = 0; i < filec; ++i) {
+        if (files[i]->d_name[0] == '.' || (!strcmp(files[i]->d_name, OUTPUT))) {
+            continue;
+        }
+        printf("Processing %s\n", files[i]->d_name);
+
+        char buffer[BUFFER_SIZE];
+        size_t readc;
+        FILE *file = fopen(files[i]->d_name, "r");
+        while ((readc = fread(buffer, sizeof(char), BUFFER_SIZE, file))) {
+            md_parse(buffer, readc, &parser, cr);
+        }
+        fclose(file);
+
+        cairo_show_page(cr);
     }
 
     cairo_destroy(cr);

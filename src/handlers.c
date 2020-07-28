@@ -10,7 +10,8 @@ int enter_block(MD_BLOCKTYPE bt, void *d, void *cr) {
 }
 
 int leave_block(MD_BLOCKTYPE bt, void *d, void *cr) {
-    cairo_show_page(cr);
+    /* FIXME */
+    cairo_show_text(cr, " LF ");
     return 0;
 }
 
