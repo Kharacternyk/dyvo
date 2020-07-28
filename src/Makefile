@@ -2,7 +2,8 @@ debug: format check build
 	@cd slides.d && ../dyvo
 
 build:
-	@gcc -o dyvo -Wall *.c -lmd4c -lcairo
+	@gcc `pkg-config --cflags pangocairo md4c` -o dyvo -Wall *.c \
+		`pkg-config --libs md4c pangocairo`
 
 check:
 	@cppcheck --suppress=missingIncludeSystem --template=gcc \

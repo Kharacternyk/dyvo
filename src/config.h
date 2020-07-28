@@ -7,7 +7,7 @@
 #define TEXT_TOP_MARGIN 50
 
 #define TYPEFACE "serif"
-#define FONT_SIZE 32
+#define FONT_SIZE 16
 
 #define OUTPUT "dyvo.pdf"
 #define BUFFER_SIZE 1000

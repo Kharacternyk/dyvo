@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <string.h>
+#include <pango/pangocairo.h>
 
 #include "handlers.h"
 #include "config.h"
@@ -17,6 +18,8 @@ int main() {
         NULL,
         NULL
     };
+
+    PangoLayout *layout;
 
     cairo_surface_t *surface = cairo_pdf_surface_create(OUTPUT, PAGE_WIDTH, PAGE_HEIGHT);
     cairo_t *cr = cairo_create(surface);
