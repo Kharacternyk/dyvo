@@ -15,11 +15,11 @@ int main() {
 
     PangoLayout *layout = pango_cairo_create_layout(cr);
     PangoFontDescription *desc = pango_font_description_from_string(TYPEFACE);
-    pango_font_description_free(desc);
     pango_layout_set_font_description(layout, desc);
     pango_layout_set_justify(layout, 1);
     pango_layout_set_width(layout, PANGO_SCALE * (PAGE_WIDTH - 2 * PAGE_HMARGIN));
     pango_layout_set_height(layout, PANGO_SCALE * (PAGE_HEIGHT - 2 * PAGE_VMARGIN));
+    pango_font_description_free(desc);
 
     struct dirent **files;
     size_t filec = scandir(".", &files, NULL, alphasort);
