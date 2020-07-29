@@ -4,7 +4,8 @@
 #include <pango/pangocairo.h>
 #include <cairo/cairo-pdf.h>
 
-#include "config.h"
+#include "main.h"
+#include "util.h"
 
 int main() {
     cairo_surface_t *surface = cairo_pdf_surface_create(OUTPUT, PAGE_WIDTH, PAGE_HEIGHT);
@@ -28,12 +29,10 @@ int main() {
         }
         printf("Processing %s\n", files[i]->d_name);
 
-        char buffer[BUFFER_SIZE];
-        FILE *file = fopen(files[i]->d_name, "r");
-        size_t readc = fread(buffer, sizeof(char), BUFFER_SIZE, file);
-        fclose(file);
+        char *buffer = fread_till_end(files[i]->d_name);
+        pango_layout_set_markup(layout, buffer, -1);
+        free(buffer);
 
-        pango_layout_set_markup(layout, buffer, readc);
         pango_cairo_show_layout(cr, layout);
         cairo_show_page(cr);
     }
