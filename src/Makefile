@@ -1,5 +1,5 @@
 debug: format check build
-	@cd slides.d && ../dyvo
+	@cd slides.d && ../dyvo && impressive -qt SlideUp dyvo.pdf
 
 build:
 	@gcc `pkg-config --cflags pangocairo md4c` -o dyvo -Wall *.c \
