@@ -13,7 +13,7 @@ int main() {
     cairo_t *cr = cairo_create(surface);
 
     struct dirent **files;
-    size_t filec = scandir(".", &files, NULL, alphasort);
+    const size_t filec = scandir(".", &files, NULL, alphasort);
     for (size_t i = 0; i < filec; ++i) {
         if (files[i]->d_name[0] == '.' || (!strcmp(files[i]->d_name, OUTPUT))) {
             continue;

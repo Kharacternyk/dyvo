@@ -3,7 +3,7 @@
 
 #include "display.h"
 
-void display_pango_markup(cairo_t *cr, char *data,
+void display_pango_markup(cairo_t *cr, const char *data,
                           double x1, double y1, double x2, double y2) {
     cairo_set_source_rgb(cr, FONT_COLOR_R, FONT_COLOR_G, FONT_COLOR_B);
     cairo_move_to(cr, x1, y1);
