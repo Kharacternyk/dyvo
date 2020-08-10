@@ -7,7 +7,7 @@ generate:
 	@cd slides.d && ../dyvo
 
 build:
-	@gcc `pkg-config --cflags pangocairo md4c` -o dyvo -Wall *.c \
+	@gcc `pkg-config --cflags pangocairo md4c` -o dyvo -Werror -Wall *.c \
 		`pkg-config --libs md4c pangocairo`
 
 check:
