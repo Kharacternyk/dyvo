@@ -5,8 +5,7 @@
 #include <cairo/cairo-pdf.h>
 
 #include "main.h"
-#include "util.h"
-#include "display.h"
+#include "layout.h"
 
 int main() {
     cairo_surface_t *surface = cairo_pdf_surface_create(OUTPUT, PAGE_WIDTH, PAGE_HEIGHT);
@@ -19,13 +18,7 @@ int main() {
             continue;
         }
         printf("Processing %s\n", files[i]->d_name);
-
-        char *data = fread_till_end(files[i]->d_name);
-        display_pango_markup(cr, data,
-                             PAGE_HMARGIN, PAGE_VMARGIN,
-                             PAGE_WIDTH - PAGE_HMARGIN, PAGE_HEIGHT - PAGE_VMARGIN);
-        free(data);
-
+        layout(cr, files[i]->d_name);
         cairo_show_page(cr);
     }
 
