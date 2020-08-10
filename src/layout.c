@@ -1,5 +1,6 @@
 #include <dirent.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <cairo/cairo.h>
@@ -13,9 +14,12 @@
 
 static void layout_file(cairo_t *cr, const char *filename,
                         double x1, double y1, double x2, double y2) {
-    char *data = fread_till_end(filename);
-    display_pango_markup(cr, data, x1, y1, x2, y2);
-    free(data);
+    char *ext = strstr(filename, ".");
+    if (ext == NULL || !strcmp(ext, ".txt")) {
+        display_pango_markup(cr, filename, x1, y1, x2, y2);
+        return;
+    }
+    return;
 }
 
 static void layout_dir(cairo_t *cr, const char *filename) {

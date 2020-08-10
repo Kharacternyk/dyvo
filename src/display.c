@@ -2,9 +2,12 @@
 #include <cairo/cairo.h>
 
 #include "display.h"
+#include "util.h"
 
-void display_pango_markup(cairo_t *cr, const char *data,
+void display_pango_markup(cairo_t *cr, const char *filename,
                           double x1, double y1, double x2, double y2) {
+    char *data = fread_till_end(filename);
+
     cairo_set_source_rgb(cr, FONT_COLOR_R, FONT_COLOR_G, FONT_COLOR_B);
     cairo_move_to(cr, x1, y1);
 
@@ -19,4 +22,5 @@ void display_pango_markup(cairo_t *cr, const char *data,
 
     pango_font_description_free(desc);
     g_object_unref(layout);
+    free(data);
 }
