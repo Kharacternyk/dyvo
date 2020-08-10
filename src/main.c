@@ -6,15 +6,16 @@
 
 #include "main.h"
 #include "layout.h"
+#include "util.h"
 
 int main() {
     cairo_surface_t *surface = cairo_pdf_surface_create(OUTPUT, PAGE_WIDTH, PAGE_HEIGHT);
     cairo_t *cr = cairo_create(surface);
 
     struct dirent **files;
-    const size_t filec = scandir(".", &files, NULL, alphasort);
+    const size_t filec = scandir(".", &files, nothidden, alphasort);
     for (size_t i = 0; i < filec; ++i) {
-        if (files[i]->d_name[0] == '.' || (!strcmp(files[i]->d_name, OUTPUT))) {
+        if (!strcmp(files[i]->d_name, OUTPUT)) {
             continue;
         }
         printf("Processing %s\n", files[i]->d_name);

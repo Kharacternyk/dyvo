@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "util.h"
+
 #define FREAD_BUFFER_SIZE 1000
 
 char *fread_till_end(const char *fname) {
@@ -18,3 +20,6 @@ char *fread_till_end(const char *fname) {
     return buffer;
 }
 
+int nothidden(const struct dirent *file) {
+    return file->d_name[0] != '.';
+}

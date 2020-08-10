@@ -11,10 +11,6 @@
 
 #define PAGE_DEF_MARGIN 10
 
-static int nothidden(const struct dirent *file) {
-    return file->d_name[0] != '.';
-}
-
 static void layout_file(cairo_t *cr, const char *filename) {
     char *data = fread_till_end(filename);
     display_pango_markup(cr, data,
