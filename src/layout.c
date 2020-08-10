@@ -11,6 +11,10 @@
 
 #define PAGE_DEF_MARGIN 10
 
+static int nothidden(const struct dirent *file) {
+    return file->d_name[0] != '.';
+}
+
 static void layout_file(cairo_t *cr, const char *filename) {
     char *data = fread_till_end(filename);
     display_pango_markup(cr, data,
@@ -19,8 +23,12 @@ static void layout_file(cairo_t *cr, const char *filename) {
     free(data);
 }
 
-static void layout_chain(cairo_t *cr, size_t filec,
-                         struct dirent **files, FILE *spec) {
+static void layout_dir(cairo_t *cr, const char *filename) {
+    chdir(filename);
+    FILE *spec = fopen(".dyvo", "r");
+    struct dirent **files;
+    const size_t filec = scandir(".", &files, nothidden, alphasort);
+
     for (size_t i = 0; i < filec; ++i) {
         double x1, y1, x2, y2;
         if (fscanf(spec, "%lf %lf %lf %lf", &x1, &y1, &x2, &y2) < 4) {
@@ -30,25 +38,17 @@ static void layout_chain(cairo_t *cr, size_t filec,
         display_pango_markup(cr, data, x1, y1, x2, y2);
         free(data);
     }
-}
 
-
-static int nothidden(const struct dirent *file) {
-    return file->d_name[0] != '.';
+    fclose(spec);
+    free(files);
+    chdir("..");
 }
 
 void layout(cairo_t *cr, const char *filename) {
     struct stat st;
     stat(filename, &st);
     if (S_ISDIR(st.st_mode)) {
-        chdir(filename);
-        FILE *spec = fopen(".dyvo", "r");
-        struct dirent **files;
-        const size_t filec = scandir(".", &files, nothidden, alphasort);
-        layout_chain(cr, filec, files, spec);
-        fclose(spec);
-        free(files);
-        chdir("..");
+        layout_dir(cr, filename);
     } else {
         layout_file(cr, filename);
     }
