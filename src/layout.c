@@ -14,7 +14,7 @@
 
 static void layout_file(cairo_t *cr, const char *filename,
                         double x1, double y1, double x2, double y2) {
-    char *ext = strstr(filename, ".");
+    const char *ext = strstr(filename, ".");
     if (ext == NULL || !strcmp(ext, ".txt")) {
         display_pango_markup(cr, filename, x1, y1, x2, y2);
         return;
