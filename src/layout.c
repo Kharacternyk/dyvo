@@ -39,8 +39,9 @@ static void layout_dir(cairo_t *cr, const char *filename) {
 
     for (size_t i = 0; i < filec; ++i) {
         double x1, y1, x2, y2;
-        if (fscanf(spec, "%lf %lf %lf %lf", &x1, &y1, &x2, &y2) < 4) {
-            return;
+        if (fscanf(spec, "%lf%lf%lf%lf", &x1, &y1, &x2, &y2) < 4) {
+            panic("Line #%lu of %s/.dyvo is malformed.\n",
+                  (unsigned long) i + 1, filename);
         }
         x1 *= PAGE_WIDTH, x2 *= PAGE_WIDTH;
         y1 *= PAGE_HEIGHT, y2 *= PAGE_HEIGHT;
