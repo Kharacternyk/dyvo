@@ -23,6 +23,10 @@ static void layout_file(cairo_t *cr, const char *filename,
         display_png(cr, filename, x1, y1, x2, y2);
         return;
     }
+    if (!strcmp(ext, ".svg")) {
+        display_svg(cr, filename, x1, y1, x2, y2);
+        return;
+    }
     return;
 }
 

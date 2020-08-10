@@ -36,5 +36,7 @@ void display_png(cairo_t *cr, const char *filename,
 
 void display_svg(cairo_t *cr, const char *filename,
                  double x1, double y1, double x2, double y2) {
-    /*TODO*/
+    RsvgHandle *rsvg = rsvg_handle_new_from_file(filename, NULL);
+    rsvg_handle_render_cairo(rsvg, cr);
+    g_object_unref(rsvg);
 }
