@@ -19,6 +19,10 @@ static void layout_file(cairo_t *cr, const char *filename,
         display_pango_markup(cr, filename, x1, y1, x2, y2);
         return;
     }
+    if (!strcmp(ext, ".png")) {
+        display_png(cr, filename, x1, y1, x2, y2);
+        return;
+    }
     return;
 }
 

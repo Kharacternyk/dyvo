@@ -24,3 +24,11 @@ void display_pango_markup(cairo_t *cr, const char *filename,
     g_object_unref(layout);
     free(data);
 }
+
+void display_png(cairo_t *cr, const char *filename,
+                 double x1, double y1, double x2, double y2) {
+    cairo_surface_t *surface = cairo_image_surface_create_from_png(filename);
+    cairo_set_source_surface(cr, surface, x1, y1);
+    cairo_paint(cr);
+    cairo_surface_destroy(surface);
+}

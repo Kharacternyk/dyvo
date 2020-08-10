@@ -11,4 +11,7 @@
 void display_pango_markup(cairo_t *cr, const char *filename,
                           double x1, double y1, double x2, double y2);
 
+void display_png(cairo_t *cr, const char *filename,
+                 double x1, double y1, double x2, double y2);
+
 #endif
