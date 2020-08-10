@@ -57,6 +57,7 @@ void layout(cairo_t *cr, const char *filename) {
         layout_chain(cr, filec, files, spec);
         fclose(spec);
         free(files);
+        chdir("..");
     } else {
         layout_file(cr, filename);
     }
