@@ -27,7 +27,8 @@ static void layout_file(cairo_t *cr, const char *filename,
         display_svg(cr, filename, x1, y1, x2, y2);
         return;
     }
-    return;
+    panic("Could not process file %s (unknown extension: %s).\n",
+          filename, ext);
 }
 
 static void layout_dir(cairo_t *cr, const char *filename) {
