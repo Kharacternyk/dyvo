@@ -28,6 +28,7 @@ void display_pango_markup(cairo_t *cr, const char *filename,
 
 void display_png(cairo_t *cr, const char *filename,
                  double x1, double y1, double x2, double y2) {
+    /* TODO: scale */
     cairo_surface_t *surface = cairo_image_surface_create_from_png(filename);
     cairo_set_source_surface(cr, surface, x1, y1);
     cairo_paint(cr);
@@ -36,6 +37,7 @@ void display_png(cairo_t *cr, const char *filename,
 
 void display_svg(cairo_t *cr, const char *filename,
                  double x1, double y1, double x2, double y2) {
+    /* TODO: use rsvg-cairo to set the dimensions */
     RsvgHandle *rsvg = rsvg_handle_new_from_file(filename, NULL);
     rsvg_handle_render_cairo(rsvg, cr);
     g_object_unref(rsvg);
