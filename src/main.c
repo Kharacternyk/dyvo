@@ -22,6 +22,7 @@ int main() {
         cairo_show_page(cr);
     }
 
+    free(files);
     cairo_destroy(cr);
     cairo_surface_destroy(surface);
 }
