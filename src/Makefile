@@ -7,8 +7,8 @@ generate:
 	@cd slides.d && ../dyvo
 
 build:
-	@gcc `pkg-config --cflags pangocairo md4c` -o dyvo -Werror -Wall *.c \
-		`pkg-config --libs md4c pangocairo`
+	@gcc `pkg-config --cflags pangocairo md4c librsvg-2.0` -o dyvo -Werror -Wall *.c \
+		`pkg-config --libs md4c pangocairo librsvg-2.0`
 
 check:
 	@cppcheck --suppress=missingIncludeSystem --template=gcc \

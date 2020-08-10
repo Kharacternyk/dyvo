@@ -1,5 +1,6 @@
 #include <pango/pangocairo.h>
 #include <cairo/cairo.h>
+#include <librsvg/rsvg.h>
 
 #include "display.h"
 #include "util.h"
@@ -31,4 +32,9 @@ void display_png(cairo_t *cr, const char *filename,
     cairo_set_source_surface(cr, surface, x1, y1);
     cairo_paint(cr);
     cairo_surface_destroy(surface);
+}
+
+void display_svg(cairo_t *cr, const char *filename,
+                 double x1, double y1, double x2, double y2) {
+    /*TODO*/
 }
