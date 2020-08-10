@@ -13,7 +13,11 @@ char *fread_till_end(const char *fname) {
                           sizeof(char),
                           FREAD_BUFFER_SIZE, file)) == FREAD_BUFFER_SIZE) {
         overhead += FREAD_BUFFER_SIZE;
-        buffer = realloc(buffer, overhead + FREAD_BUFFER_SIZE);
+        char *buffer_new = realloc(buffer, overhead + FREAD_BUFFER_SIZE);
+        if (buffer_new == NULL) {
+            panic("Memory shortage detected while processing %s\n", fname);
+        }
+        buffer = buffer_new;
     }
     buffer[overhead + readc] = '\0';
     fclose(file);

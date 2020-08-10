@@ -28,7 +28,12 @@ static void layout_file(cairo_t *cr, const char *filename,
 
 static void layout_dir(cairo_t *cr, const char *filename) {
     chdir(filename);
+
     FILE *spec = fopen(".dyvo", "r");
+    if (spec == NULL) {
+        panic("Layout file (%s/.dyvo) was not found.\n", filename);
+    }
+
     struct dirent **files;
     const size_t filec = scandir(".", &files, nothidden, alphasort);
 
