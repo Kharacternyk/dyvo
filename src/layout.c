@@ -51,6 +51,8 @@ static void layout_dir(cairo_t *cr, const char *filename) {
         x1 *= PAGE_WIDTH, x2 *= PAGE_WIDTH;
         y1 *= PAGE_HEIGHT, y2 *= PAGE_HEIGHT;
         layout_file(cr, files[i]->d_name, x1, y1, x2, y2);
+
+        free(files[i]);
     }
 
     fclose(spec);

@@ -16,11 +16,14 @@ int main() {
     const size_t filec = scandir(".", &files, nothidden, alphasort);
     for (size_t i = 0; i < filec; ++i) {
         if (!strcmp(files[i]->d_name, OUTPUT)) {
+            free(files[i]);
             continue;
         }
         printf("Processing %s\n", files[i]->d_name);
         layout(cr, files[i]->d_name);
         cairo_show_page(cr);
+
+        free(files[i]);
     }
 
     free(files);
