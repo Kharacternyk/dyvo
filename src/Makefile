@@ -7,7 +7,7 @@ generate:
 	@cd slides.d && ../dyvo
 
 build:
-	@gcc `pkg-config --cflags pangocairo md4c librsvg-2.0` -o dyvo -Werror -Wall *.c \
+	@gcc `pkg-config --cflags pangocairo md4c librsvg-2.0` -o dyvo -g -Werror -Wall *.c \
 		`pkg-config --libs md4c pangocairo librsvg-2.0`
 
 check:
