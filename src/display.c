@@ -40,6 +40,19 @@ int display_source_code(cairo_t *cr, const char *filename,
             return -1;
         }
     }
+
+    if (!fork()) {
+        execlp("sed", "sed", "-i",
+               "1s/^.*$/<tt>/; $s/^.*$/<\\/tt>/",
+               ".dyvo.source", (char *)NULL);
+    } else {
+        int exitcode;
+        wait(&exitcode);
+        if (WEXITSTATUS(exitcode)) {
+            return -1;
+        }
+    }
+
     display_pango_markup(cr, ".dyvo.source", x1, y1, x2, y2);
 
     return 0;
