@@ -1,3 +1,5 @@
+DEPS = pangocairo md4c librsvg-2.0 yaml-0.1
+
 debug: format check build generate show
 
 show:
@@ -7,8 +9,8 @@ generate:
 	@cd slides.d && ../dyvo
 
 build:
-	@gcc `pkg-config --cflags pangocairo md4c librsvg-2.0` -o dyvo -g -Werror -Wall *.c \
-		`pkg-config --libs md4c pangocairo librsvg-2.0`
+	@gcc `pkg-config --cflags $(DEPS)` -o dyvo -g -Werror -Wall *.c \
+		`pkg-config --libs $(DEPS)`
 
 check:
 	@cppcheck --suppress=missingIncludeSystem --template=gcc \
