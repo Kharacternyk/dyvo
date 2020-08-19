@@ -1,5 +1,5 @@
-#ifndef __util
-#define __util
+#ifndef UTIL_H
+#define UTIL_H
 
 #include <sys/wait.h>
 #include <dirent.h>

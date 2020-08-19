@@ -1,5 +1,5 @@
-#ifndef __display
-#define __display
+#ifndef DISPLAY_H
+#define DISPLAY_H
 
 #include <cairo/cairo.h>
 

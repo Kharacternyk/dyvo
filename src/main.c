@@ -4,9 +4,10 @@
 #include <stdlib.h>
 #include <cairo/cairo-pdf.h>
 
-#include "main.h"
 #include "layout.h"
 #include "util.h"
+
+#define OUTPUT "dyvo.pdf"
 
 int main() {
     cairo_surface_t *surface = cairo_pdf_surface_create(OUTPUT, PAGE_WIDTH, PAGE_HEIGHT);

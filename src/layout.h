@@ -1,5 +1,5 @@
-#ifndef __layout
-#define __layout
+#ifndef LAYOUT_H
+#define LAYOUT_H
 
 #define PAGE_WIDTH 72*13.33
 #define PAGE_HEIGHT 72*7.5
