@@ -1,4 +1,4 @@
-DEPS = pangocairo md4c librsvg-2.0 yaml-0.1
+DEPS = pangocairo md4c librsvg-2.0 libconfig
 
 debug: format check build generate show
 
