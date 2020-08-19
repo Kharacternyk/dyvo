@@ -37,14 +37,19 @@ static void layout_file(cairo_t *cr, const char *filename,
 
 static void layout_dir(cairo_t *cr, const char *filename) {
     chdir(filename);
+    FILE *spec;
 
-    FILE *spec = fopen(".dyvo", "r");
-    if (spec == NULL) {
+    /***INDENT-OFF***/
+    if (!((spec = fopen("Dyvofile", "r")) ||
+          (spec = fopen("dyvofile", "r")) ||
+          (spec = fopen("dyvo.yaml", "r")) ||
+          (spec = fopen("Dyvo.yaml", "r")))) {
         panic("Layout file (%s/.dyvo) was not found.\n", filename);
     }
+    /***INDENT-ON***/
 
     struct dirent **files;
-    const size_t filec = scandir(".", &files, nothidden, alphasort);
+    const size_t filec = scandir(".", &files, not_hidden_or_dyvofile, alphasort);
 
     for (size_t i = 0; i < filec; ++i) {
         double x1, y1, x2, y2;

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "util.h"
 
@@ -24,6 +25,7 @@ char *fread_till_end(const char *fname) {
     return buffer;
 }
 
-int nothidden(const struct dirent *file) {
-    return file->d_name[0] != '.';
+int not_hidden_or_dyvofile(const struct dirent *file) {
+    return (file->d_name[0] != '.') &&
+           (strncasecmp("dyvo", file->d_name, strlen("dyvo")));
 }

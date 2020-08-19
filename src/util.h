@@ -18,6 +18,6 @@
 
 
 char *fread_till_end(const char *fname);
-int nothidden(const struct dirent *file);
+int not_hidden_or_dyvofile(const struct dirent *file);
 
 #endif
