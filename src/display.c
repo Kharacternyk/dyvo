@@ -38,7 +38,7 @@ int display_source_code(cairo_t *cr, const char *filename,
         free(tmpfilename);
         return -1;
     }
-    subprocess("sed", "-i", "1s/^.*$/<tt>/; $s/^.*$/<\\/tt>/", tmpfilename);
+    subprocess("sed", "-i", "1s/^<span[^>]*>/<tt>/; $s/<\\/span>$/<\\/tt>/", tmpfilename);
     if (exitcode) {
         free(tmpfilename);
         return -1;
