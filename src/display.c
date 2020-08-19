@@ -1,4 +1,3 @@
-#include <sys/wait.h>
 #include <pango/pangocairo.h>
 #include <cairo/cairo.h>
 #include <librsvg/rsvg.h>
@@ -30,31 +29,18 @@ void display_pango_markup(cairo_t *cr, const char *filename,
 int display_source_code(cairo_t *cr, const char *filename,
                         double x1, double y1, double x2, double y2) {
     /* TODO unique name for the output */
-    if (!fork()) {
-        execlp("highlight", "highlight", "--out-format=pango", "-o",
-               ".dyvo.source", filename, (char *)NULL);
-    } else {
-        int exitcode;
-        wait(&exitcode);
-        if (WEXITSTATUS(exitcode)) {
-            return -1;
-        }
-    }
 
-    if (!fork()) {
-        execlp("sed", "sed", "-i",
-               "1s/^.*$/<tt>/; $s/^.*$/<\\/tt>/",
-               ".dyvo.source", (char *)NULL);
-    } else {
-        int exitcode;
-        wait(&exitcode);
-        if (WEXITSTATUS(exitcode)) {
-            return -1;
-        }
+    int exitcode;
+    subprocess("highlight", "--out-format=pango", "-o", ".dyvo.source", filename);
+    if (exitcode) {
+        return -1;
+    }
+    subprocess("sed", "-i", "1s/^.*$/<tt>/; $s/^.*$/<\\/tt>/", ".dyvo.source");
+    if (exitcode) {
+        return -1;
     }
 
     display_pango_markup(cr, ".dyvo.source", x1, y1, x2, y2);
-
     return 0;
 }
 
