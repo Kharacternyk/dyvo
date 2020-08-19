@@ -28,19 +28,24 @@ void display_pango_markup(cairo_t *cr, const char *filename,
 
 int display_source_code(cairo_t *cr, const char *filename,
                         double x1, double y1, double x2, double y2) {
-    /* TODO unique name for the output */
+    char *tmpfilename = malloc(strlen(".dyvo.") + strlen(filename) + 1);
+    strcpy(tmpfilename, ".dyvo.");
+    strcat(tmpfilename, filename);
 
     int exitcode;
-    subprocess("highlight", "--out-format=pango", "-o", ".dyvo.source", filename);
+    subprocess("highlight", "--out-format=pango", "-o", tmpfilename, filename);
     if (exitcode) {
+        free(tmpfilename);
         return -1;
     }
-    subprocess("sed", "-i", "1s/^.*$/<tt>/; $s/^.*$/<\\/tt>/", ".dyvo.source");
+    subprocess("sed", "-i", "1s/^.*$/<tt>/; $s/^.*$/<\\/tt>/", tmpfilename);
     if (exitcode) {
+        free(tmpfilename);
         return -1;
     }
 
-    display_pango_markup(cr, ".dyvo.source", x1, y1, x2, y2);
+    display_pango_markup(cr, tmpfilename, x1, y1, x2, y2);
+    free(tmpfilename);
     return 0;
 }
 
