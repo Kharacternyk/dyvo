@@ -32,7 +32,7 @@ int display_source_code(cairo_t *cr, const char *filename,
     strcpy(tmpfilename, ".dyvo.");
     strcat(tmpfilename, filename);
 
-    int exitcode;
+    int exitcode = -1;
     subprocess(&exitcode, "highlight",
                "--out-format=pango", "-o", tmpfilename, filename);
     if (exitcode) {
