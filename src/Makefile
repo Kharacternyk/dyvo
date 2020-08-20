@@ -22,3 +22,5 @@ format:
 graph:
 	@cinclude2dot | xdot -
 
+valgrind:
+	@cd slides.d && valgrind ../dyvo
