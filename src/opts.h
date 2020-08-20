@@ -1,12 +1,14 @@
 #ifndef OPTS_H
 #define OPTS_H
 
+#include <libconfig.h>
+
 struct opts {
     const char *output;
     double page_width;
     double page_height;
 };
 
-struct opts parse_opts(const struct opts *defaults);
+void parse_opts(config_t *cfg, struct opts *opts);
 
 #endif

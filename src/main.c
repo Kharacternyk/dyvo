@@ -9,12 +9,17 @@
 #include "opts.h"
 
 int main() {
-    struct opts defaults = {
+    struct opts opts = {
         .output = "dyvo.pdf",
         .page_width = 72 * 13.33,
         .page_height = 72 * 7.5
     };
-    struct opts opts = parse_opts(&defaults);
+
+    config_t cfg;
+    config_init(&cfg);
+    config_set_option(&cfg, CONFIG_OPTION_AUTOCONVERT, CONFIG_TRUE);
+
+    parse_opts(&cfg, &opts);
 
     cairo_surface_t *surface = cairo_pdf_surface_create(opts.output,
                                opts.page_width, opts.page_height);
@@ -34,6 +39,7 @@ int main() {
         free(files[i]);
     }
 
+    config_destroy(&cfg);
     free(files);
     cairo_destroy(cr);
     cairo_surface_destroy(surface);
