@@ -5,8 +5,10 @@
 
 struct opts {
     const char *output;
-    double page_width;
-    double page_height;
+    double page_width, page_height;
+
+    const char *font;
+    double fg_r, fg_g, fg_b;
 };
 
 void parse_opts(config_t *cfg, struct opts *opts);

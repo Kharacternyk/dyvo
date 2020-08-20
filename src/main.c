@@ -12,7 +12,11 @@ int main() {
     struct opts opts = {
         .output = "dyvo.pdf",
         .page_width = 72 * 13.33,
-        .page_height = 72 * 7.5
+        .page_height = 72 * 7.5,
+        .font = "Serif 24",
+        .fg_r = 0,
+        .fg_g = 0,
+        .fg_b = 0
     };
 
     config_t cfg;

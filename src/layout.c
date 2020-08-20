@@ -13,21 +13,22 @@
 #define PAGE_DEF_MARGIN 10
 
 static void layout_file(cairo_t *cr, const char *filename,
-                        double x1, double y1, double x2, double y2) {
+                        double x1, double y1, double x2, double y2,
+                        const struct opts *defaults) {
     const char *ext = strstr(filename, ".");
     if (ext == NULL || !strcmp(ext, ".txt")) {
-        display_pango_markup(cr, filename, x1, y1, x2, y2);
+        display_pango_markup(cr, filename, x1, y1, x2, y2, defaults);
         return;
     }
     if (!strcmp(ext, ".png")) {
-        display_png(cr, filename, x1, y1, x2, y2);
+        display_png(cr, filename, x1, y1, x2, y2, defaults);
         return;
     }
     if (!strcmp(ext, ".svg")) {
-        display_svg(cr, filename, x1, y1, x2, y2);
+        display_svg(cr, filename, x1, y1, x2, y2, defaults);
         return;
     }
-    if (!display_source_code(cr, filename, x1, y1, x2, y2)) {
+    if (!display_source_code(cr, filename, x1, y1, x2, y2, defaults)) {
         return;
     }
 
@@ -59,7 +60,7 @@ static void layout_dir(cairo_t *cr, const char *filename, const struct opts *def
         }
         x1 *= defaults->page_width, x2 *= defaults->page_width;
         y1 *= defaults->page_height, y2 *= defaults->page_height;
-        layout_file(cr, files[i]->d_name, x1, y1, x2, y2);
+        layout_file(cr, files[i]->d_name, x1, y1, x2, y2, defaults);
 
         free(files[i]);
     }
@@ -78,6 +79,6 @@ void layout(cairo_t *cr, const char *filename, const struct opts *defaults) {
         layout_file(cr, filename,
                     PAGE_DEF_MARGIN, PAGE_DEF_MARGIN,
                     defaults->page_width - PAGE_DEF_MARGIN,
-                    defaults->page_height - PAGE_DEF_MARGIN);
+                    defaults->page_height - PAGE_DEF_MARGIN, defaults);
     }
 }

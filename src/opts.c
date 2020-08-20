@@ -17,4 +17,9 @@ void parse_opts(config_t *cfg, struct opts *opts) {
     config_lookup_string(cfg, "output", &opts->output);
     config_lookup_float(cfg, "page.width", &opts->page_width);
     config_lookup_float(cfg, "page.height", &opts->page_height);
+
+    config_lookup_string(cfg, "font", &opts->font);
+    config_lookup_float(cfg, "fg.r", &opts->fg_r);
+    config_lookup_float(cfg, "fg.g", &opts->fg_g);
+    config_lookup_float(cfg, "fg.b", &opts->fg_b);
 }
