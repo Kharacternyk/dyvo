@@ -5,6 +5,6 @@ struct opts {
     const char *output;
 };
 
-struct opts parse_opts(const char *filename);
+struct opts parse_opts();
 
 #endif

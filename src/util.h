@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdlib.h>
 
 #define panic(fmt, ...) do {fprintf(stderr, fmt, __VA_ARGS__); exit(1);} while(0)
 
