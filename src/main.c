@@ -6,17 +6,19 @@
 
 #include "layout.h"
 #include "util.h"
-
-#define OUTPUT "dyvo.pdf"
+#include "opts.h"
 
 int main() {
-    cairo_surface_t *surface = cairo_pdf_surface_create(OUTPUT, PAGE_WIDTH, PAGE_HEIGHT);
+    struct opts opts = parse_opts("Dyvofile");
+
+    cairo_surface_t *surface = cairo_pdf_surface_create(opts.output,
+                               PAGE_WIDTH, PAGE_HEIGHT);
     cairo_t *cr = cairo_create(surface);
 
     struct dirent **files;
     const size_t filec = scandir(".", &files, not_hidden_or_dyvofile, alphasort);
     for (size_t i = 0; i < filec; ++i) {
-        if (!strcmp(files[i]->d_name, OUTPUT)) {
+        if (!strcmp(files[i]->d_name, opts.output)) {
             free(files[i]);
             continue;
         }
