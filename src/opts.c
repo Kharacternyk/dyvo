@@ -14,7 +14,7 @@ struct opts parse_opts(const struct opts *defaults) {
     config_t cfg;
     config_init(&cfg);
     if (!config_read(&cfg, specfile)) {
-        panic("Malformed dyfofile (%s:%d): %s\n",
+        panic("Malformed dyvofile (line %d): %s\n",
               config_error_file(&cfg),
               config_error_line(&cfg),
               config_error_text(&cfg));
