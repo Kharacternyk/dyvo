@@ -10,12 +10,14 @@
 
 int main() {
     struct opts defaults = {
-        .output = "dyvo.pdf"
+        .output = "dyvo.pdf",
+        .page_width = 72 * 13.33,
+        .page_height = 72 * 7.5
     };
     struct opts opts = parse_opts(&defaults);
 
     cairo_surface_t *surface = cairo_pdf_surface_create(opts.output,
-                               PAGE_WIDTH, PAGE_HEIGHT);
+                               opts.page_width, opts.page_height);
     cairo_t *cr = cairo_create(surface);
 
     struct dirent **files;
@@ -26,7 +28,7 @@ int main() {
             continue;
         }
         printf("Processing %s\n", files[i]->d_name);
-        layout(cr, files[i]->d_name);
+        layout(cr, files[i]->d_name, &opts);
         cairo_show_page(cr);
 
         free(files[i]);

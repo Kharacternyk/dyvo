@@ -3,6 +3,8 @@
 
 struct opts {
     const char *output;
+    double page_width;
+    double page_height;
 };
 
 struct opts parse_opts(const struct opts *defaults);

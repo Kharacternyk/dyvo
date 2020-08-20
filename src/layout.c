@@ -35,7 +35,7 @@ static void layout_file(cairo_t *cr, const char *filename,
           filename, ext);
 }
 
-static void layout_dir(cairo_t *cr, const char *filename) {
+static void layout_dir(cairo_t *cr, const char *filename, const struct opts *defaults) {
     chdir(filename);
     FILE *spec;
 
@@ -57,8 +57,8 @@ static void layout_dir(cairo_t *cr, const char *filename) {
             panic("Line #%lu of %s/.dyvo is malformed.\n",
                   (unsigned long) i + 1, filename);
         }
-        x1 *= PAGE_WIDTH, x2 *= PAGE_WIDTH;
-        y1 *= PAGE_HEIGHT, y2 *= PAGE_HEIGHT;
+        x1 *= defaults->page_width, x2 *= defaults->page_width;
+        y1 *= defaults->page_height, y2 *= defaults->page_height;
         layout_file(cr, files[i]->d_name, x1, y1, x2, y2);
 
         free(files[i]);
@@ -69,14 +69,15 @@ static void layout_dir(cairo_t *cr, const char *filename) {
     chdir("..");
 }
 
-void layout(cairo_t *cr, const char *filename) {
+void layout(cairo_t *cr, const char *filename, const struct opts *defaults) {
     struct stat st;
     stat(filename, &st);
     if (S_ISDIR(st.st_mode)) {
-        layout_dir(cr, filename);
+        layout_dir(cr, filename, defaults);
     } else {
         layout_file(cr, filename,
                     PAGE_DEF_MARGIN, PAGE_DEF_MARGIN,
-                    PAGE_WIDTH - PAGE_DEF_MARGIN, PAGE_HEIGHT - PAGE_DEF_MARGIN);
+                    defaults->page_width - PAGE_DEF_MARGIN,
+                    defaults->page_height - PAGE_DEF_MARGIN);
     }
 }

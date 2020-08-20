@@ -3,7 +3,7 @@ DEPS = pangocairo md4c librsvg-2.0 libconfig
 debug: format check build generate show
 
 show:
-	@impressive -qt None slides.d/dyvo.pdf
+	@impressive -qt None slides.d/dyvo2.pdf
 
 generate:
 	@cd slides.d && ../dyvo
