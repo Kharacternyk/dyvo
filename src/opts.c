@@ -23,5 +23,6 @@ struct opts parse_opts(const struct opts *defaults) {
 
     config_lookup_string(&cfg, "output", &opts.output);
 
+    config_destoy(&cfg);
     return opts;
 }
