@@ -3,10 +3,8 @@
 #include "opts.h"
 #include "util.h"
 
-struct opts parse_opts() {
-    struct opts opts = {
-        .output = "dyvo.pdf"
-    };
+struct opts parse_opts(const struct opts *defaults) {
+    struct opts opts = *defaults;
 
     FILE *specfile = fopen("Dyvofile", "r");
     if (specfile == NULL) {

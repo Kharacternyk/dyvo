@@ -9,7 +9,10 @@
 #include "opts.h"
 
 int main() {
-    struct opts opts = parse_opts();
+    struct opts defaults = {
+        .output = "dyvo.pdf"
+    };
+    struct opts opts = parse_opts(&defaults);
 
     cairo_surface_t *surface = cairo_pdf_surface_create(opts.output,
                                PAGE_WIDTH, PAGE_HEIGHT);
