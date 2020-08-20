@@ -33,12 +33,14 @@ int display_source_code(cairo_t *cr, const char *filename,
     strcat(tmpfilename, filename);
 
     int exitcode;
-    subprocess("highlight", "--out-format=pango", "-o", tmpfilename, filename);
+    subprocess(&exitcode, "highlight",
+               "--out-format=pango", "-o", tmpfilename, filename);
     if (exitcode) {
         free(tmpfilename);
         return -1;
     }
-    subprocess("sed", "-i", "1s/^<span[^>]*>/<tt>/; $s/<\\/span>$/<\\/tt>/", tmpfilename);
+    subprocess(&exitcode, "sed",
+               "-i", "1s/^<span[^>]*>/<tt>/; $s/<\\/span>$/<\\/tt>/", tmpfilename);
     if (exitcode) {
         free(tmpfilename);
         return -1;

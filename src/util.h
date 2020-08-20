@@ -6,13 +6,13 @@
 
 #define panic(fmt, ...) do {fprintf(stderr, fmt, __VA_ARGS__); exit(1);} while(0)
 
-#define subprocess(name, ...) \
+#define subprocess(exitcode, name, ...) \
     do { \
         if (!fork()) { \
             execlp(name, name, __VA_ARGS__, (char *)NULL); \
         } else { \
-            wait(&exitcode); \
-            exitcode = WEXITSTATUS(exitcode); \
+            wait(exitcode); \
+            *exitcode = WEXITSTATUS(*exitcode); \
         } \
     } while(0)
 
